@@ -15,7 +15,7 @@ describe("Basic Tests", () => {
     assert.isOk(fs);
   });
 
-  it("rootfs has same properties as defaultFs", () => {
+  it("rootfs has same properties as default fs", () => {
     let props = [];
     for (let prop in defaultFs) {
       //assert.isOk(rootfs[prop], prop + " not present on rootfs.");
