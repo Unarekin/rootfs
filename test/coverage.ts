@@ -10,7 +10,8 @@ const ignoreProperties: string[] = [
   "FileReadStream",
   "FileWriteStream",
   "Dirent",
-  "Stats"
+  "Stats",
+  "_toUnixTimestamp"
 ];
 
 //let base = path.resolve('./test/files');
