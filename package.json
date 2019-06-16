@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register test/**"
+    "test": "rimraf mochawesome-report && mocha -r ts-node/register test/**.ts --reporter mochawesome --reporter-options reportTitle=rootfs,reportPageTitle=\"rootfs tests\""
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
+    "rimraf": "^2.6.3",
     "ts-node": "^8.3.0"
   },
   "dependencies": {
