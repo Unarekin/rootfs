@@ -13,6 +13,9 @@
     "coverage": "nyc --reporter=text npm run test:coverage",
     "build": "tsc"
   },
+  "files": [
+    "./dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Unarekin/rootfs.git"
