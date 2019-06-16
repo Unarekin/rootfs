@@ -5,13 +5,17 @@ import * as path from 'path';
   Handles reading in function specifications
  */
 
-let funcs: any = {};
-fs.readdirSync(__dirname)
-.forEach((file) => {
-  if (file !== path.basename(__filename)) {
-    let temp = require(path.join(__dirname, file));
-    console.log(temp);
-  }
-});
+module.exports = (root: string): Object => {
+  let funcs: any = {};
+  // console.log("Functions: ", root);
+  fs.readdirSync(__dirname)
+  .forEach((file) => {
+    if (file !== path.basename(__filename)) {
+      let temp = require(path.join(__dirname, file))(root);
+      
+      funcs = Object.assign(funcs, temp);
+    }
+  });
 
-module.exports = funcs;
+  return funcs;
+};
