@@ -8,7 +8,7 @@ import * as os from 'os';
 // console.log("Base: ", base);
 const rootfs = require('../src')('./test/files');
 
-describe("Watch", () => {
+describe.skip("Watch", () => {
   it("#watch", (done) => {
     rootfs.writeFileSync("/watch1.txt", "");
     let watchTriggered: boolean = false;
