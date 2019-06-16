@@ -9,8 +9,6 @@ import * as rimraf from 'rimraf';
 // console.log("Base: ", base);
 const rootfs = require('../src')('./test/files');
 
-const expectedFiles = ['files', 'temp', 'test.txt', 'test1', 'test2', 'watch1.txt', 'watch2.txt'];
-
 describe("Directories", () => {
   let temp1: string = "";
   let temp2: string = "";
@@ -45,6 +43,7 @@ describe("Directories", () => {
     rootfs.readdir("/", (err, files) => {
       assert.isNotOk(err, (err ? err.message : ''));
       assert.isOk(files, "Unable to retrieve list of files.");
+      let expectedFiles = fs.readdirSync("./test/files/");
       // assert.equal(files.length, 2, `Expected to find one file.  Instead, found ${files.length}.`);
       assert.deepEqual(files, expectedFiles, `File list contains unexpected entries: ${files.join(", ")}.`);
 
@@ -55,6 +54,7 @@ describe("Directories", () => {
   it("#readdir - withFileTypes", (done) => {
     rootfs.readdir("/", { withFileTypes: true }, (err, files) => {
       assert.isOk(files, "Unable to retrieve list of files.");
+      let expectedFiles = fs.readdirSync("./test/files/");
       for (let i=0;i<expectedFiles.length;i++) {
         assert.property(files[i], "name", "Dirent did not have 'name' property.");
         assert.equal(files[i].name, expectedFiles[i]);
@@ -67,12 +67,14 @@ describe("Directories", () => {
     let files = rootfs.readdirSync("/");
     assert.isOk(files, "Unable to retrieve list of files.");
     // assert.equal(files.length, 2, `Expected to find one file.  Found ${files.length}`);
+    let expectedFiles = fs.readdirSync("./test/files/");
     assert.deepEqual(files, expectedFiles, `File list contains unexpected entries: ${files.join(", ")}.`);
   });
 
   it("#readdirSync - withFileTypes", () => {
     let files = rootfs.readdirSync("/", {withFileTypes: true});
     assert.isOk(files, "Unable to retrieve list of files.");
+    let expectedFiles = fs.readdirSync("./test/files/");
     for (let i=0;i<expectedFiles.length;i++) {
       assert.property(files[i], "name", "Dirent did not have 'name' property.");
       assert.equal(files[i].name, expectedFiles[i]);
