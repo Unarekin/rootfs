@@ -38,13 +38,13 @@ describe("File writing", () => {
     rootfs.truncateSync("/write.txt");
   });
   it("#unlink", (done) => {
-    rootfs.writeFileSync("/write.txt", "test");
-    rootfs.unlink("/write.txt", done);
+    rootfs.writeFileSync("/unlink1.txt", "test");
+    rootfs.unlink("/unlink1.txt", done);
   });
 
   it("#unlinkSync", () => {
-    rootfs.writeFileSync("/write.txt", "test");
-    rootfs.unlinkSync("/write.txt");
+    rootfs.writeFileSync("/unlink2.txt", "test");
+    rootfs.unlinkSync("/unlink2.txt");
   });
   it("#write", (done) => {
     let fd = rootfs.openSync("/write3.txt", 'w');
