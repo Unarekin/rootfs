@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 
-function ResolveError(dir: string, syscall: string) {
+function ResolveError(dir: string, syscall: string, resolved: string) {
   Error.captureStackTrace(this, this.constructor.name);
 
   this.message = `no such file or directory, ${syscall} '${dir}'`;
@@ -9,6 +9,8 @@ function ResolveError(dir: string, syscall: string) {
   this.errno = -2;
   this.syscall = syscall;
   this.path = dir;
+
+  this.actualPath = resolved;
 
   //this.stack = this.stack.split("\n").splice(1, 2);
 
@@ -40,8 +42,12 @@ export function isChildOf(child, parent)  {
 
 export function resolvePath(root: string, dir: string): string {
   let resolvedPath = path.join(path.resolve(root), dir);
-  if (!isChildOf(resolvedPath, root))
-    throw new ResolveError(dir, "open");
+  let resolvedRoot = path.resolve(root);
+  if (!isChildOf(resolvedPath, resolvedRoot)) {
+    // console.error("Attempted to load path: ", resolvedPath, resolvedRoot);
+    // process.exit();
+    throw new ResolveError(dir, "open", resolvedPath);
+  }
 
   // let resErr = new ResolveError(dir, 'open');
   // console.error(resErr);

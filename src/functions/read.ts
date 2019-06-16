@@ -7,6 +7,8 @@ let rootPath = "/";
 
 let hookedFuncs: any = {};
 let funcNames: string[] = [
+  "read",
+  "readSync",
   "readFile",
   "readFileSync",
   "readlink",
