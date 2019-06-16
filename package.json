@@ -7,7 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "rimraf mochawesome-report && mocha -r ts-node/register test/**.ts --reporter mochawesome --reporter-options reportTitle=rootfs,reportPageTitle=\"rootfs tests\""
+    "test": "nyc mocha",
+    "test:report": "rimraf mochawesome-report && mocha -r ts-node/register test/**.ts --reporter mochawesome --reporter-options reportTitle=rootfs,reportPageTitle=\"rootfs tests\"",
+    "test:coverage": "mocha -r ts-node/register test/**.ts",
+    "coverage": "nyc --reporter=text npm run test:coverage"
   },
   "repository": {
     "type": "git",
@@ -28,12 +31,33 @@
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
     "rimraf": "^2.6.3",
+    "source-map-support": "^0.5.12",
     "ts-node": "^8.3.0"
   },
   "dependencies": {
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.0.8",
-    "fs-monkey": "^0.3.3"
+    "fs-monkey": "^0.3.3",
+    "typescript": "^3.5.2"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   }
 }
