@@ -62,3 +62,5 @@ typings/
 vagrantfile
 .vagrant/
 mochawesome-report/
+test/files/watch2.txt
+test/files/watch1.txt
