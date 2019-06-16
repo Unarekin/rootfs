@@ -2,7 +2,7 @@
   "name": "rootfs",
   "version": "1.0.0",
   "description": "fs-like NodeJS library that allows setting a root file path.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "directories": {
     "test": "test"
   },
