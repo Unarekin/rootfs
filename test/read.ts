@@ -7,11 +7,12 @@ const rootfs = require('../src')('./test/files');
 
 describe("File reading", () => {
 
-
   it("#readFile", (done) => {
     rootfs.readFile("/test.txt", (err, data) => {
-      if (err)
+      if (err) {
+        console.error(err.actualPath);
         return done(err);
+      }
       
         assert.equal(data.toString(), "test", `Expected test.txt to contain 'test', instead contained '{data.toString()}'.`);
         done();
