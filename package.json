@@ -1,0 +1,64 @@
+{
+  "name": "rootfs",
+  "version": "1.0.0",
+  "description": "fs-like NodeJS library that allows setting a root file path.",
+  "main": "dist/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "nyc mocha",
+    "test:report": "rimraf mochawesome-report && mocha -r ts-node/register test/**.ts --reporter mochawesome --reporter-options reportTitle=rootfs,reportPageTitle=\"rootfs tests\"",
+    "test:coverage": "mocha -r ts-node/register test/**.ts",
+    "coverage": "nyc --reporter=text npm run test:coverage",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Unarekin/rootfs.git"
+  },
+  "keywords": [
+    "fs",
+    "root",
+    "rootfs"
+  ],
+  "author": "Erica Phelps <erica@blackspork.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Unarekin/rootfs/issues"
+  },
+  "homepage": "https://github.com/Unarekin/rootfs#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "rimraf": "^2.6.3",
+    "source-map-support": "^0.5.12",
+    "ts-node": "^8.3.0"
+  },
+  "dependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.0.8",
+    "fs-monkey": "^0.3.3",
+    "typescript": "^3.5.2"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
+  }
+}
