@@ -15,8 +15,8 @@ const functionsToHook = [
   "chownSync",
   "close",
   "closeSync",
-  "copyFile",
-  "copyFileSync",
+  // "copyFile",
+  // "copyFileSync",
   "createReadStream",
   "createWriteStream",
   "exists",
@@ -59,8 +59,8 @@ const functionsToHook = [
   "readlinkSync",
   "realpath",
   "realpathSync",
-  "rename",
-  "renameSync",
+  // "rename",
+  // "renameSync",
   "rmdir",
   "rmdirSync",
   "stat",
@@ -96,6 +96,17 @@ function root(dir="/", fs = defaultfs): fsLike {
     funcs[funcName] = function() {
       fsUtils.setPathArgument(dir, arguments);
       return defaultfs[funcName].apply(funcs, arguments);
+    }
+  });
+
+  // copyFile, copyFileSync, rename, renameSync are special cases,
+  // they have two path arguments. Shocking, I know!
+  ["copyFile", "copyFileSync", "rename", "renameSync"]
+  .forEach((funcName: string): void => {
+    funcs[funcName] = function() {
+      arguments[0] = fsUtils.resolvePath(dir, arguments[0]);
+      arguments[1] = fsUtils.resolvePath(dir, arguments[1]);
+      return fs[funcName].apply(funcs, arguments);
     }
   });
 
