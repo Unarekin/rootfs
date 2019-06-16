@@ -25,4 +25,12 @@ describe("Basic Tests", () => {
 
     assert.isAbove(props.length, 0, "Properties found not mirrored on rootfs: " + props.join(", "));
   });
+
+  it("Has rootPath", () => {
+    assert.isOk(fs.rootPath);
+  });
+
+  it ("Has rootPathAbsolute", () => {
+    assert.isOk(fs.rootPathAbsolute);
+  });
 });

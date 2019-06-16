@@ -34,12 +34,17 @@ describe("File reading", () => {
 
   // Unfortunately, symbolic links on a Windows host are kind of tricky.
   // These tests will need to wait.
-  it.skip("#readlink", (done) => {
-    done();
+  it("#readlink", (done) => {
+    rootfs.readlink("/files", (err, link) => {
+      assert.isNotOk(err, (err ? err.message : ''));
+      assert.isOk(link);
+      done();
+    });
   });
 
-  it.skip("#readlinkSync", () => {
-
+  it("#readlinkSync", () => {
+    let link = rootfs.readlinkSync("/files");
+    assert.isOk(link);
   });
 
   it("#createReadStream", (done) => {
@@ -76,8 +81,8 @@ describe("File reading", () => {
     rootfs.readdir("/", (err, files) => {
       assert.isNotOk(err, (err ? err.message : ''));
       assert.isOk(files, "Unable to retrieve list of files.");
-      assert.equal(files.length, 1, `Expected to find one file.  Instead, found ${files.length}.`);
-      assert.deepEqual(files, ['test.txt'], `File list contains unexpected entries: ${files.join(", ")}.`);
+      assert.equal(files.length, 2, `Expected to find one file.  Instead, found ${files.length}.`);
+      assert.deepEqual(files, ['files', 'test.txt'], `File list contains unexpected entries: ${files.join(", ")}.`);
 
       done();
     });
@@ -86,8 +91,8 @@ describe("File reading", () => {
   it("readdirSync", () => {
     let files = rootfs.readdirSync("/");
     assert.isOk(files, "Unable to retrieve list of files.");
-    assert.equal(files.length, 1, `Expected to find one file.  Found ${files.length}`);
-    assert.deepEqual(files, ['test.txt'], `File list contains unexpected entries: ${files.join(", ")}.`);
+    assert.equal(files.length, 2, `Expected to find one file.  Found ${files.length}`);
+    assert.deepEqual(files, ['files', 'test.txt'], `File list contains unexpected entries: ${files.join(", ")}.`);
   });
 
   it("realpath", (done) => {
