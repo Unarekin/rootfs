@@ -11,7 +11,7 @@ describe("Basic Tests", () => {
   });
 
   it("Can initialize rootfs", () => {
-    fs = rootfs("./files");
+    fs = rootfs("./test/files");
     assert.isOk(fs);
   });
 
