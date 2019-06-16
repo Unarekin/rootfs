@@ -73,6 +73,54 @@ describe("File reading", () => {
     });
   });
 
+  it("#close", (done) => {
+    let fd = rootfs.openSync("/test.txt");
+    assert.isOk(fd, "Unable to open /test.txt");
+    rootfs.close(fd, (err) => {
+      if (err) {
+        done(err);
+      } else {
+        done();
+      }
+    });
+  });
+
+  it("#read", (done) => {
+    let fd = rootfs.openSync("/test.txt");
+    assert.isOk(fd, "Unable to open /test.txt");
+    let buf: Buffer = Buffer.alloc(4, 0);
+    rootfs.read(fd, buf, 0, 4, 0, (err, bytesRead, buffer) => {
+      if (err) {
+        done(err);
+      } else {
+        assert.equal(bytesRead, 4, "Expected to read 4 bytes.");
+        assert.isOk(buffer);
+        assert.deepEqual(buf, Buffer.from("test"), `Did not read expected contents.  Read '${buf.toString()}'`)
+
+        rootfs.closeSync(fd);
+        done();
+      }
+    });
+  });
+
+  it("#readSync", () => {
+    let fd = rootfs.openSync("/test.txt");
+    assert.isOk(fd, "Unable to open /test.txt");
+    let buf: Buffer = Buffer.alloc(4, 0);
+    let bytesRead = rootfs.readSync(fd, buf, 0, 4, 0);
+    assert.equal(bytesRead, 4);
+    assert.isOk(buf);
+    assert.deepEqual(buf, Buffer.from("test"), `Did not read expected contents.  Read '${buf.toString()}`);
+
+    rootfs.closeSync(fd);
+  });
+
+  it("#closeSync", () => {
+    let fd = rootfs.openSync("/test.txt");
+    assert.isOk(fd);
+    rootfs.closeSync(fd);
+  });
+
   it("#readlinkSync", () => {
     let link = rootfs.readlinkSync("/files");
     assert.isOk(link);
