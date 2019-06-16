@@ -66,9 +66,39 @@ describe("File writing", () => {
     rootfs.closeSync(fd);
   });
 
+  it("#ftruncate", (done) => {
+    let fd = rootfs.openSync("/write1.txt", 'w');
+    assert.isOk(fd, "Unable to open file to truncate.");
+    rootfs.ftruncate(fd, 0, (err) => {
+      if (err) {
+        done(err);
+      } else {
+        let text = rootfs.readFileSync("/write1.txt");
+        assert.isOk(text);
+        assert.equal(text, "");
+
+        rootfs.closeSync(fd);
+
+        done();
+      }
+    });
+  });
+
+  it("#ftruncateSync", () => {
+    let fd = rootfs.openSync("/write2.txt", 'w');
+    assert.isOk(fd, "Unable to open file to truncate.");
+    rootfs.ftruncateSync(fd, 0);
+    let text = rootfs.readFileSync("/write2.txt");
+    assert.isOk(text);
+    assert.equal(text, "");
+
+    rootfs.closeSync(fd);
+  });
+
   after("cleanup", () => {
     let files: string[] = [
       "write.txt",
+      "write1.txt",
       "write2.txt",
       "write3.txt",
       "link1",
