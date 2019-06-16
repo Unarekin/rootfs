@@ -2,6 +2,7 @@ import * as defaultfs from 'fs';
 import * as path from 'path';
 import * as fsUtils from './utils/index';
 
+import { fsLike } from './fsLike';
 
 const functionsToHook = [
   "access",
@@ -82,12 +83,13 @@ const functionsToHook = [
 ];
 
 
-function root(dir="/", fs = defaultfs) {
+function root(dir="/", fs = defaultfs): fsLike {
   let abs = path.resolve(dir);
 
-  let funcs: any = {};
-  funcs.rootPath = dir;
-  funcs.rootPathAbsolute = abs;
+  let funcs: fsLike = {
+    rootPath: dir,
+    rootPathAbsolute: abs
+  };
 
 
   functionsToHook.forEach((funcName: string): void => {
