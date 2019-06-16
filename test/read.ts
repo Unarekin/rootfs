@@ -32,21 +32,6 @@ describe("File reading", () => {
   });
 
 
-  // Unfortunately, symbolic links on a Windows host are kind of tricky.
-  // These tests will need to wait.
-  it("#readlink", (done) => {
-    rootfs.readlink("/files", (err, link) => {
-      assert.isNotOk(err, (err ? err.message : ''));
-      assert.isOk(link);
-      done();
-    });
-  });
-
-  it("#readlinkSync", () => {
-    let link = rootfs.readlinkSync("/files");
-    assert.isOk(link);
-  });
-
   it("#createReadStream", (done) => {
     let stream = rootfs.createReadStream("/test.txt");
     let text = "";
@@ -77,39 +62,18 @@ describe("File reading", () => {
     assert.isOk(fd, "Unable to get file descriptor.");
   });
 
-  it("readdir", (done) => {
-    rootfs.readdir("/", (err, files) => {
+  // Unfortunately, symbolic links on a Windows host are kind of tricky.
+  // These tests will need to wait.
+  it("#readlink", (done) => {
+    rootfs.readlink("/files", (err, link) => {
       assert.isNotOk(err, (err ? err.message : ''));
-      assert.isOk(files, "Unable to retrieve list of files.");
-      assert.equal(files.length, 2, `Expected to find one file.  Instead, found ${files.length}.`);
-      assert.deepEqual(files, ['files', 'test.txt'], `File list contains unexpected entries: ${files.join(", ")}.`);
-
+      assert.isOk(link);
       done();
     });
   });
 
-  it("readdirSync", () => {
-    let files = rootfs.readdirSync("/");
-    assert.isOk(files, "Unable to retrieve list of files.");
-    assert.equal(files.length, 2, `Expected to find one file.  Found ${files.length}`);
-    assert.deepEqual(files, ['files', 'test.txt'], `File list contains unexpected entries: ${files.join(", ")}.`);
-  });
-
-  it("realpath", (done) => {
-    rootfs.realpath("/", (err, resolved) => {
-      assert.isNotOk(err, (err ? err.message : err));
-      assert.isOk(resolved);
-      let expPath = path.resolve(path.join(path.dirname(__filename), "files"));
-      assert.equal(resolved, expPath, `Expected realpath to resolve to ${expPath}, instead got ${resolved}.`);
-      done();
-    });
-  });
-
-  it("realpathSync", () => {
-    let resolved = rootfs.realpathSync("/");
-    assert.isOk(resolved);
-
-    let expPath = path.resolve(path.join(path.dirname(__filename), "files"));
-    assert.equal(resolved, expPath, `Expected realpath to resolve to ${expPath}, instead got ${resolved}`);
+  it("#readlinkSync", () => {
+    let link = rootfs.readlinkSync("/files");
+    assert.isOk(link);
   });
 });
