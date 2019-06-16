@@ -10,7 +10,8 @@
     "test": "nyc mocha",
     "test:report": "rimraf mochawesome-report && mocha -r ts-node/register test/**.ts --reporter mochawesome --reporter-options reportTitle=rootfs,reportPageTitle=\"rootfs tests\"",
     "test:coverage": "mocha -r ts-node/register test/**.ts",
-    "coverage": "nyc --reporter=text npm run test:coverage"
+    "coverage": "nyc --reporter=text npm run test:coverage",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
