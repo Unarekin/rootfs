@@ -10,7 +10,7 @@ const rootfs = require('../src')('./test/files');
 
 describe("Stat", () => {
   it("#fstat", (done) => {
-    rootfs.open("/test.txt", 'r', (err, fd) => {
+    rootfs.open("/stat.txt", 'r', (err, fd) => {
       if (err) {
         done(err);
       } else {
@@ -28,14 +28,14 @@ describe("Stat", () => {
   });
 
   it("#fstatSync", () => {
-    let fd = rootfs.openSync("/test.txt", 'r');
+    let fd = rootfs.openSync("/stat.txt", 'r');
     let stat = rootfs.fstatSync(fd);
     assert.isOk(stat);
 
     rootfs.closeSync(fd);
   });
   it("#lstat", (done) => {
-    rootfs.lstat("/test.txt", (err, stat) => {
+    rootfs.lstat("/stat.txt", (err, stat) => {
       if (err) {
         done(err);
       } else {
@@ -45,11 +45,11 @@ describe("Stat", () => {
     });
   });
   it("#lstatSync", () => {
-    let stat = rootfs.lstatSync("/test.txt");
+    let stat = rootfs.lstatSync("/stat.txt");
     assert.isOk(stat);
   });
   it("#stat", (done) => {
-    rootfs.stat("/test.txt", (err, stat) => {
+    rootfs.stat("/stat.txt", (err, stat) => {
       if (err) {
         done(err);
       } else {
@@ -59,7 +59,7 @@ describe("Stat", () => {
     });
   });
   it("#statSync", () => {
-    let stat = rootfs.statSync("/test.txt");
+    let stat = rootfs.statSync("/stat.txt");
     assert.isOk(stat);
   });
 });
