@@ -4,9 +4,9 @@ import * as fs from 'fs';
 
 import * as os from 'os';
 
-const rootfs = require('../src')('./test/files');
 
 describe("Utimes", () => {
+  const rootfs = require('../src')('./test/files');
   before("Setup", () => {
     // Should reset atime, mtime
     rootfs.writeFileSync("/utimes.txt", "");

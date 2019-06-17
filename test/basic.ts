@@ -2,10 +2,10 @@ import { expect, should, assert } from 'chai';
 import * as path from 'path';
 import * as defaultFs from 'fs';
 
-let rootfs: any=null;
-let fs: any= null;
 
 describe("Basic Tests", () => {
+  let rootfs: any=null;
+  let fs: any= null;
   it("Can import rootfs", () => {
     rootfs = require("../src");
   });
@@ -16,14 +16,16 @@ describe("Basic Tests", () => {
   });
 
   it("rootfs has same properties as default fs", () => {
-    let props = [];
-    for (let prop in defaultFs) {
-      //assert.isOk(rootfs[prop], prop + " not present on rootfs.");
-      if (!rootfs[prop])
-        props.push(prop);
-    }
+    // let props = [];
+    // for (let prop in defaultFs) {
+    //   //assert.isOk(rootfs[prop], prop + " not present on rootfs.");
+    //   if (!rootfs[prop])
+    //     props.push(prop);
+    // }
 
-    assert.isAbove(props.length, 0, "Properties found not mirrored on rootfs: " + props.join(", "));
+    // assert.isAbove(props.length, 0, "Properties found not mirrored on rootfs: " + props.join(", "));
+    let props = Object.keys(defaultFs).filter((prop: string) => Object.keys(rootfs).includes(prop));
+    assert.equal(props.length, 0, "Properties not found mirrored on rootfs: " + props.join(", "));
   });
 
   it("Has rootPath", () => {

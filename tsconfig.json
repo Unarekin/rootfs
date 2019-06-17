@@ -12,7 +12,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": false,
     "noImplicitAny": false,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "allowSyntheticDefaultImports": true,
   },
   "include": [

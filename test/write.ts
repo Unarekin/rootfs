@@ -6,9 +6,9 @@ import * as os from 'os';
 
 //let base = path.resolve('./test/files');
 // console.log("Base: ", base);
-const rootfs = require('../src')('./test/files');
 
 describe("File writing", () => {
+  const rootfs = require('../src')('./test/files');
   it("#appendFile", (done) => {
     rootfs.appendFile("/test.txt", "woot", (err) => {
       fs.truncateSync("./test/files/test.txt", 4);

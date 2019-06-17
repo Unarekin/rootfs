@@ -6,9 +6,9 @@ import * as os from 'os';
 
 //let base = path.resolve('./test/files');
 // console.log("Base: ", base);
-const rootfs = require('../src')('./test/files');
 
 describe("Copy/Rename", () => {
+  const rootfs = require('../src')('./test/files');
   it("#copyFile", (done) => {
     rootfs.copyFile("/copy.txt", "/copy1.txt", (err) => {
       if (err) {
@@ -49,14 +49,13 @@ describe("Copy/Rename", () => {
       removeFileIfExtant(`/${dir}`);
     });
   });
-});
 
-
-function removeFileIfExtant(dir: string): void {
-  try {
-    rootfs.unlinkSync(dir);
-  } catch (err) {
-    if (err.code != "ENOENT")
-      throw err;
+  function removeFileIfExtant(dir: string): void {
+    try {
+      rootfs.unlinkSync(dir);
+    } catch (err) {
+      if (err.code != "ENOENT")
+        throw err;
+    }
   }
-}
+});

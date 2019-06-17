@@ -3,9 +3,9 @@ import * as path from 'path';
 
 //let base = path.resolve('./test/files');
 // console.log("Base: ", base);
-const rootfs = require('../src')('./test/files');
 
 describe("File reading", () => {
+  const rootfs = require('../src')('./test/files');
 
   it("#readFile", (done) => {
     rootfs.readFile("/test.txt", (err, data) => {
@@ -63,15 +63,7 @@ describe("File reading", () => {
     assert.isOk(fd, "Unable to get file descriptor.");
   });
 
-  // Unfortunately, symbolic links on a Windows host are kind of tricky.
-  // These tests will need to wait.
-  it("#readlink", (done) => {
-    rootfs.readlink("/files", (err, link) => {
-      assert.isNotOk(err, (err ? err.message : ''));
-      assert.isOk(link);
-      done();
-    });
-  });
+
 
   it("#close", (done) => {
     let fd = rootfs.openSync("/test.txt");
@@ -119,10 +111,5 @@ describe("File reading", () => {
     let fd = rootfs.openSync("/test.txt");
     assert.isOk(fd);
     rootfs.closeSync(fd);
-  });
-
-  it("#readlinkSync", () => {
-    let link = rootfs.readlinkSync("/files");
-    assert.isOk(link);
   });
 });
