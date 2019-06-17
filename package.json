@@ -32,6 +32,8 @@
   },
   "homepage": "https://github.com/Unarekin/rootfs#readme",
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
     "rimraf": "^2.6.3",
@@ -39,10 +41,7 @@
     "ts-node": "^8.3.0"
   },
   "dependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.7",
     "@types/node": "^12.0.8",
-    "fs-monkey": "^0.3.3",
     "typescript": "^3.5.2"
   },
   "nyc": {
