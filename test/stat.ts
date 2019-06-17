@@ -6,9 +6,9 @@ import * as os from 'os';
 
 //let base = path.resolve('./test/files');
 // console.log("Base: ", base);
-const rootfs = require('../src')('./test/files');
 
 describe("Stat", () => {
+  const rootfs = require('../src')('./test/files');
   it("#fstat", (done) => {
     rootfs.open("/stat.txt", 'r', (err, fd) => {
       if (err) {

@@ -6,9 +6,10 @@ import * as os from 'os';
 
 //let base = path.resolve('./test/files');
 // console.log("Base: ", base);
-const rootfs = require('../src')('./test/files');
+
 
 describe("Chown/Chmod", () => {
+  const rootfs = require('../src')('./test/files');
   it("#chmod", (done) => {
     rootfs.chmod("/chmod.txt", 6, done);
   });

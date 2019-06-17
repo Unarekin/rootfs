@@ -6,9 +6,9 @@ import * as os from 'os';
 
 //let base = path.resolve('./test/files');
 // console.log("Base: ", base);
-const rootfs = require('../src')('./test/files');
 
 describe.skip("Links/Symlinks", () => {
+  const rootfs = require('../src')('./test/files');
   it("#link", function(done) {
 
     if (os.platform() === 'win32') {
@@ -36,6 +36,17 @@ describe.skip("Links/Symlinks", () => {
       }
     }
   });
+  it("#readlink", (done) => {
+    rootfs.readlink("/files", (err, link) => {
+      assert.isNotOk(err, (err ? err.message : ''));
+      assert.isOk(link);
+      done();
+    });
+  });
+  it("#readlinkSync", () => {
+    let link = rootfs.readlinkSync("/files");
+    assert.isOk(link);
+  });
   it("#symlink", function(done)  {
     if (os.platform() === "win32") {
       this.skip();
@@ -62,4 +73,6 @@ describe.skip("Links/Symlinks", () => {
       }
     }
   });
+
+
 });

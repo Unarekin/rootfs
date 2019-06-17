@@ -7,9 +7,9 @@ import * as rimraf from 'rimraf';
 
 //let base = path.resolve('./test/files');
 // console.log("Base: ", base);
-const rootfs = require('../src')('./test/files');
 
 describe("Directories", () => {
+  const rootfs = require('../src')('./test/files');
   let temp1: string = "";
   let temp2: string = "";
 
