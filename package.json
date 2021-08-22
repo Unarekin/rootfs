@@ -1,5 +1,5 @@
 {
-  "name": "rootfs",
+  "name": "@unarekin/rootfs",
   "version": "1.0.2",
   "description": "fs-like NodeJS library that allows setting a root file path.",
   "main": "dist/index.js",
@@ -16,6 +16,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Unarekin/rootfs.git"
